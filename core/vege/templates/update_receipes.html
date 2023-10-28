@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block start %}
+
+<div class="container mt-5 ">
+
+
+    <form class="col-6 mx-auto" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Update Bounty</h2>
+        <hr>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <input type="text" required value="{{receipe.receipe_name}}" name="receipe_name" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1"  class="form-label">Description</label>
+          <textarea class="form-control" name="receipe_description" required cols=" 10" rows="7">{{receipe.receipe_description}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Image</label>
+            <input type="file" name="receipe_image" class="form-control" >
+          </div>
+        <button type="submit" class="btn btn-success">UPDATE</button>
+      </form>
+
+</div>
+
+
+{% endblock %}
+
