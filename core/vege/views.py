@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
+
 
 @ login_required(login_url="/login/")
 def receipes(request):
@@ -20,7 +23,6 @@ def receipes(request):
         receipe_image = receipe_image,
 
         )
-
         return redirect('/receipes/')
     
     queryset = Receipe.objects.all()
@@ -29,6 +31,9 @@ def receipes(request):
     context = {'receipes' : queryset}
 
     return render(request , 'receipes.html' , context)
+
+
+
 
 @ login_required(login_url="/login/")
 def update(request ,id ):
@@ -53,11 +58,16 @@ def update(request ,id ):
     context = {'receipe' : queryset}
     return render(request , 'update_receipes.html' , context)
 
+
+
+
 @ login_required(login_url="/login/")
 def delete(request,id):
     queryset = Receipe.objects.get(id = id)
     queryset.delete()
     return redirect('/receipes/')
+
+
 
 
 def login_page(request):
@@ -79,9 +89,14 @@ def login_page(request):
 
     return render(request , 'login.html')
 
+
+
+
 def logout_page(request):
     logout(request)
     return redirect('/login/')
+
+
 
 
 def register_page(request):
@@ -110,4 +125,16 @@ def register_page(request):
 
     return render(request , 'register.html')
     
+
+
+
+def get_students(request):
+    queryset = Student.objects.all()
+    paginator = Paginator(queryset, 3)  # Show 25 contacts per page.
+
+    page_number = request.GET.get("page",1)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request , 'report/students.html' , {'queryset' : page_obj} )
+
 
