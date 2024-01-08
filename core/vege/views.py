@@ -147,10 +147,21 @@ def get_students(request):
     return render(request , 'report/students.html' , {'queryset' : page_obj})
 
 
+
 def see_marks(request , student_id):
     querryset = SubjectMarks.objects.filter(student__student_id__Student_id = student_id)
     total_marks = querryset.aggregate(total_marks = Sum('marks'))
-    return render(request , 'report/see_marks.html' , {'queryset' : querryset , 'total_marks' : total_marks})
+    current_rank = -1
+    i = 0
+    ranks = Student.objects.annotate(marks = Sum('subjectmarks__marks')).order_by('-marks','-student_age')
+    
+    for rank in ranks:
+        i=i+1
+        if student_id == rank.student_id.Student_id:
+            current_rank= i
+            break
+    
+    return render(request , 'report/see_marks.html' , {'queryset' : querryset , 'total_marks' : total_marks , 'current_rank' : current_rank})
     
     
 
