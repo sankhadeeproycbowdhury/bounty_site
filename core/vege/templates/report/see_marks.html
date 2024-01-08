@@ -3,8 +3,10 @@
 
 
 <div class="container mt-5">
-      <h4>Rank: {{current_rank }}</h4>
-      <h4>Total: {{total_marks.total_marks}}</h4>  
+      <h4>Rank: {{queryset.first.student.subjectreportcard.first.student_rank }}</h4>
+      <h4>Total: {{total_marks.total_marks}}</h4>
+      <h4>Date: {{queryset.first.student.subjectreportcard.first.date_of_report_card_generation}}</h4>  
+      
       <table class="table table-striped">
           <tbody>
               {% for marks in queryset %}
