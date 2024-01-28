@@ -2,12 +2,17 @@
 {% block start %}
 
 
-    <h1>Hey this is a Home page</h1>
-    <a href="/">Home </a>
-    <a href="/about/">About </a>
-    <a href="/contact/">Contact </a>
+    <div class ="container"> 
+      <h1>Hey this is a Home page</h1>
+      <h1>This is a Sent Email</h1>
+      <a href="{% url "send_email" %}" class ="btn btn-success">SendEmail</a>
+    </div>
+    
+    <a href="/">Home|</a>
+    <a href="/about/">About|</a>
+    <a href="/contact/">Contact|</a>
      <!-- {{peoples}} -->
-     <table class="table">
+     <table class="container mt-5">
         <thead>
           <tr>
             <th scope="col">#</th>
